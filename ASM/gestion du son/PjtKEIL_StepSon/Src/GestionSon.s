@@ -20,9 +20,23 @@ SortieSon dcw 0;
 
 	export CallbackSon
 		
+	export StartSon
+		
 ;Section ROM code (read only) :		
 	area    moncode,code,readonly
-; écrire le code ici	
+		
+	import PWM_Set_Value_TIM3_Ch3
+; écrire le code ici
+
+
+StartSon proc
+    ldr R0,=IndexTable
+    mov R1, #0
+    str R1, [r0]
+    bx lr
+    endp
+		
+		
 CallbackSon proc
 	push {lr}
 	ldr R0, =IndexTable
@@ -47,6 +61,13 @@ alors
 	sdiv R2, R3
 	ldr R3, =SortieSon
 	strh R2, [R3]
+	
+	;PWM_Set_Value_TIM3_Ch3(SortieSon);
+	push{R0}
+	mov R0, R2 
+	bl PWM_Set_Value_TIM3_Ch3
+	pop{R0}
+	
 	ldr R0, =IndexTable
 	ldrh R1, [R0]
 	add R1, #1
@@ -56,6 +77,12 @@ sinon
 	mov R2, #360
 	ldr R3, =SortieSon
 	strh R2, [R3]
+	
+	;PWM_Set_Value_TIM3_Ch3(SortieSon);
+	push{R0}
+	mov R0, R2 
+	bl PWM_Set_Value_TIM3_Ch3
+	pop{R0}
 fin
 	
 	pop {lr}
