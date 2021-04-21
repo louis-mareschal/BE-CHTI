@@ -104,24 +104,29 @@ ARM Macro Assembler    Page 2
    83 00000064 4610            mov              R0, R2
    84 00000066 F7FF FFFE       bl               PWM_Set_Value_TIM3_Ch3
    85 0000006A BC01            pop{R0}
-   86 0000006C         fin
-   87 0000006C         
-   88 0000006C F85D EB04       pop              {lr}
-   89 00000070 4770            bx               lr
-   90 00000072                 endp
-   91 00000072         
-   92 00000072                 END
+   86 0000006C         
+   87 0000006C         ;on lance StartSon pour relancer le son en boucle;
+   88 0000006C         ;push{R0,R1};
+   89 0000006C         ;bl StartSon;
+   90 0000006C         ;pop{R0,R1};
+   91 0000006C         fin
+   92 0000006C         
+   93 0000006C F85D EB04       pop              {lr}
+   94 00000070 4770            bx               lr
+   95 00000072                 endp
+   96 00000072         
+   97 00000072                 END
               00 00 00000000 
               00000000 
               00000000 
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --apcs=interw
-ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_CibleSondeKEIL -I
-C:\Programdata\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programda
-ta\Keil\Arm\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL S
-ETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530"
- --predefine="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE
-_ SETA 1" --list=gestionson.lst Src\GestionSon.s
+ork --depend=.\obj\gestionson.d -o.\obj\gestionson.o -I.\RTE\_Simu -IC:\Program
+data\Keil\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Programdata\Keil\Ar
+m\Packs\Keil\STM32F1xx_DFP\2.3.0\Device\Include --predefine="__EVAL SETA 1" --p
+redefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 530" --predefi
+ne="_RTE_ SETA 1" --predefine="STM32F10X_MD SETA 1" --predefine="_RTE_ SETA 1" 
+--list=gestionson.lst Src\GestionSon.s
 
 
 
@@ -207,7 +212,7 @@ fin 0000006C
 
 Symbol: fin
    Definitions
-      At line 86 in file Src\GestionSon.s
+      At line 91 in file Src\GestionSon.s
    Uses
       At line 75 in file Src\GestionSon.s
 Comment: fin used once

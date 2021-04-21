@@ -83,6 +83,11 @@ sinon
 	mov R0, R2 
 	bl PWM_Set_Value_TIM3_Ch3
 	pop{R0}
+
+	;on lance StartSon pour relancer le son en boucle;
+	push{R0,R1}
+	bl StartSon
+	pop{R0,R1}
 fin
 	
 	pop {lr}
