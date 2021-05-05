@@ -1,9 +1,6 @@
-
-
 #include "DriverJeuLaser.h"
 #include "GestionSon.h"
 
-void CallbackSon(void);
 
 int main(void)
 {
@@ -41,6 +38,9 @@ GPIO_Configure(GPIOB, 1, OUTPUT, OUTPUT_PPULL);
 	
 while	(1)
 	{
+		for( long int i = 0 ; i < 10000000 ; i++) {
+			
+		}
+		StartSon() ;
 	}
 }
-

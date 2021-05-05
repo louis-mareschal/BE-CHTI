@@ -30,11 +30,11 @@ SortieSon dcw 0;
 
 
 StartSon proc
-    ldr R0,=IndexTable
-    mov R1, #0
-    str R1, [r0]
-    bx lr
-    endp
+	ldr R0,=IndexTable
+	mov R1, #0
+	str R1, [r0]
+	bl CallbackSon
+	endp
 		
 		
 CallbackSon proc
@@ -48,10 +48,8 @@ CallbackSon proc
 	cmp R1, #0
 	beq sinon
 alors
-	mov R3, #2
-	mul R0, R3
 	ldr R1, =Son
-	ldrsh R2, [R1, R0]
+	ldrsh R2, [R1, R0, lsl#1] ; ldrsh plus simple pour le parcours de tableau avec indice ;
 	; maintenent il faut recentrer le son entre [0,719], son_recentree = (son+32768)/ (65535/719) ;
 	; on prendra son_recentree = ( son + 32768 )*719 / 65536 => max à 718,98 ;
 	add R2, #32768
@@ -72,7 +70,7 @@ alors
 	ldrh R1, [R0]
 	add R1, #1
 	str R1, [R0]
-	bl fin
+	b fin
 sinon 
 	mov R2, #360
 	ldr R3, =SortieSon
@@ -84,10 +82,6 @@ sinon
 	bl PWM_Set_Value_TIM3_Ch3
 	pop{R0}
 
-	;on lance StartSon pour relancer le son en boucle;
-	push{R0,R1}
-	bl StartSon
-	pop{R0,R1}
 fin
 	
 	pop {lr}
