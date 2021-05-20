@@ -23,7 +23,54 @@
 ; écrire le code ici
 
 DFT_ModuleAuCarre proc
+	
+	; on a l'adresse du signal dans le registre r0 et k dans r1
+	ldr r2, =TabCos ; adresse de TabCos dans le registre r2
+	push{LR,r0}
+	bl partieReEtIm ; calcul de la partie réelle
+	mov r3, r0; Re dan r3
+	pop{r0}
+	push {r3}
+	ldr r2, =TabSin ; adresse de TabSin dans le registre r2
+	bl partieReEtIm ; calcul de la partie immaginaire
+	mov r12 , r0 ; Im dans r12
+	pop{r3}
+	mul r1, r3 , r3 ; Re^2
+	mul r2, r12 , r12;Im^2
+	add r0, r1, r2; ; Re^2 + Im^2
+	pop{PC}
+	
+
+partieReEtIm
+	; ro contient l'adresse du signal
+	; r1 contient la valeur de k
+	; r2 contient adresse de TabCos ou Tabsin
+	mov r3 , #0x00 ; r3 va nous servir de compteur i 
+	mov r12, #0x00 ; va contenir le resultat temporairement	
+comparaison	cmp r3, #64 ; on compare i a 64
+	bne loop ; tant que i n'est pas à 64 on calcule la valeur et on l'ajoute
+	b fin	
+loop
+	push {r1} 
+	push{r12}; on garde l'ancienne contenu dans r12 
+	mul r1, r1 , r3 ;  i*k
+	and r1, #0x3F  ; contient i*k modulo 64
+	ldrsh r12 , [r2, r1 , LSL #0x01] ;  cos(i*k*2 pi / N)
+	mov r1 , r12
+	ldrsh r12 , [r0, r3 , LSL #0x01] ;  x(i)
+	mul r12 , r12 , r1 ; x(i)* cos(i*k*2 pi / N)
+	add r3 , #0x01 ; on incremente le compteur i
+	mov r1, r12
+	pop{r12}
+	add r12, r1
+	pop {r1}
+	b comparaison ; on reboucle
+fin
+	mov r0 , r12 ; on stocke la partie réel ou immaginaire calculée dans r0
+	bx lr 
+	
 	endp
+	
 
 
 

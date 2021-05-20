@@ -4,7 +4,7 @@
  *      *** Do not modify ! ***
  *
  * Project: 'StepDFT' 
- * Target:  'Simu' 
+ * Target:  'CibleSondeST' 
  */
 
 #ifndef RTE_COMPONENTS_H
