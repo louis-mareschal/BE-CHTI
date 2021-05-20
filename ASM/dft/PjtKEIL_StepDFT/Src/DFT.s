@@ -15,11 +15,15 @@
 ; ===============================================================================================
 	
 
+	export DFT_ModuleAuCarre ;
 
 		
 ;Section ROM code (read only) :		
 	area    moncode,code,readonly
-; écrire le code ici		
+; écrire le code ici
+
+DFT_ModuleAuCarre proc
+	endp
 
 
 
