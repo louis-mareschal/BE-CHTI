@@ -1,6 +1,6 @@
 #include "DriverJeuLaser.h"
 
-int DFT_ModuleAuCarre( short int * Signal64ech, int k) ;
+int DFT_ModuleAuCarre( short int * signal, int k) ;
 int tab[64];
 extern short int LeSignal;
 int main(void)
