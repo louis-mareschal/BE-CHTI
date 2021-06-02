@@ -4,6 +4,7 @@
 ".\obj\signal.o"
 ".\obj\startup-rvds.o"
 ".\Driver\DriverJeuLaser.lib"
+".\ModuleAffichage\affichage_valise.o"
 --library_type=microlib --strict --scatter ".\Obj\StepDFT.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
